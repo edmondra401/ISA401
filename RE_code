@@ -1,0 +1,82 @@
+# Web scraping to get table from website, 2008 Presidential Website 
+```{r}
+check <- robotstxt::paths_allowed(paths = "documents/2009/", domain  = "https://www.federalregister.gov")
+print(check)
+```
+
+```{r}
+install.packages("writexl")
+library(writexl)
+
+step0 = "https://www.federalregister.gov/documents/2009/01/27/E9-1687/estimates-of-the-voting-age-population-for-2008"
+
+step1 = rvest::read_html_live(step0)
+
+step2_table = rvest::html_element(x = step1, css = "table")
+
+step3_table = rvest::html_table(step2_table)
+
+colnames(step3_table)
+
+df = data.frame(area = rbind(step3_table[,1] , step3_table[,3]), pop = rbind(step3_table[,2], step3_table[,4]))
+df = df[-c(23,28,29, 51), ]
+
+write_xlsx(df, path = "VAP_Num_2008.xlsx")
+```
+
+
+# Web scraping to get table from website, 2012 Presidential Website 
+```{r}
+if(require(writexl)==FALSE) install.packages('writexl')
+library(writexl)
+
+step0 = "https://www.federalregister.gov/documents/2013/01/30/2013-02004/estimates-of-the-voting-age-population-for-2012"
+
+step1 = rvest::read_html_live(step0)
+
+step2_table = rvest::html_element(x = step1, css = "table")
+
+step3_table = rvest::html_table(step2_table)
+
+write_xlsx(step3_table, path = "VAP_Num_2012.xlsx")
+
+```
+
+
+# Web scraping to get table from website, 2016 Presidential Website 
+
+```{r}
+if(require(writexl)==FALSE) install.packages('writexl')
+library(writexl)
+
+step0 = "https://www.federalregister.gov/documents/2017/01/30/2017-01890/estimates-of-the-voting-age-population-for-2016"
+
+step1 = rvest::read_html_live(step0)
+
+step2_table = rvest::html_element(x = step1, css = "table")
+
+step3_table = rvest::html_table(step2_table)
+
+write_xlsx(step3_table, path = "VAP_Num_2016.xlsx")
+```
+
+
+# Web scraping to get table from website, 2020 Presidential Website 
+
+```{r}
+if(require(writexl)==FALSE) install.packages('writexl')
+library(writexl)
+
+step0 = "https://www.federalregister.gov/documents/2021/05/06/2021-09422/estimates-of-the-voting-age-population-for-2020"
+
+step1 = rvest::read_html_live(step0)
+
+step2_table = rvest::html_element(x = step1, css = "table")
+
+step3_table = rvest::html_table(step2_table)
+
+step3_table = step3_table[-c(32), ]
+
+write_xlsx(step3_table, path = "VAP_Num_2020.xlsx")
+
+```
