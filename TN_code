@@ -1,1 +1,534 @@
+```{r}
+# Load required libraries
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
 
+* Voters Age Distribution 2008
+```{r}
+# Load the Excel sheets for Female and Male
+female_age_data_2008 <- read_excel("Voters_Age_2008.xlsx", sheet = "Female")
+colnames(female_age_data_2008)
+male_age_data_2008 <- read_excel("Voters_Age_2008.xlsx", sheet = "Male")
+
+# Select and clean relevant columns for Female data
+female_age_2008_clean <- female_age_data_2008 %>%
+  slice(4:9) %>%  
+  select(Age = Age, Voters = `...9`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Female")  # Add Gender column
+female_age_2008_clean
+
+# Select and clean relevant columns for Male data
+male_age_2008_clean <- male_age_data_2008 %>%
+  slice(4:9) %>%  # Selecting rows corresponding to age groups
+  select(Age = Age, Voters = `...9`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Male")  # Add Gender column
+```
+
+```{r}
+# Combine Female and Male data by Age
+combined_age_2008 <- full_join(
+  female_age_2008_clean,
+  male_age_2008_clean,
+  by = "Age",
+  suffix = c("_Female", "_Male")
+) %>%
+  # Select and rename columns for clarity
+  select(Age, Female = Voters_Female, Male = Voters_Male) %>%
+  # Reshape the data to have Gender and Voters as separate columns
+  pivot_longer(
+    cols = c(Female, Male),
+    names_to = "Gender",
+    values_to = "Voters"
+  ) %>%
+  # Ensure Voters column is numeric and round the values
+  mutate(Voters = round(as.numeric(Voters), 1))
+
+# View the reshaped dataset
+print(combined_age_2008)
+
+# Optional: Save the reshaped dataset to a CSV
+write.csv(combined_age_2008, "combined_age_2008.csv", row.names = FALSE)
+```
+
+* Voters Age Distribution 2012
+```{r}
+# Load the Excel sheets for Female and Male
+female_age_data_2012 <- read_excel("Voters_Age_2012.xlsx", sheet = "Female")
+male_age_data_2012 <- read_excel("Voters_Age_2012.xlsx", sheet = "Male")
+
+# Select and clean relevant columns for Female data
+female_age_2012_clean <- female_age_data_2012 %>%
+  slice(4:9) %>%  
+  select(Age = Age, Voters = `...11`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Female")  # Add Gender column
+
+# Select and clean relevant columns for Male data
+male_age_2012_clean <- male_age_data_2012 %>%
+  slice(4:9) %>%  # Selecting rows corresponding to age groups
+  select(Age = Age, Voters = `...11`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Male")  # Add Gender column
+```
+
+```{r}
+# Combine Female and Male data by Age
+combined_age_2012 <- full_join(
+  female_age_2012_clean,
+  male_age_2012_clean,
+  by = "Age",
+  suffix = c("_Female", "_Male")
+) %>%
+  # Select and rename columns for clarity
+  select(Age, Female = Voters_Female, Male = Voters_Male) %>%
+  # Reshape the data to have Gender and Voters as separate columns
+  pivot_longer(
+    cols = c(Female, Male),
+    names_to = "Gender",
+    values_to = "Voters"
+  ) %>%
+  # Ensure Voters column is numeric and round the values
+  mutate(Voters = round(as.numeric(Voters), 1))
+
+# View the reshaped dataset
+print(combined_age_2012)
+
+# Optional: Save the reshaped dataset to a CSV
+write.csv(combined_age_2012, "combined_age_2012.csv", row.names = FALSE)
+```
+
+* Voters Age Distribution 2016
+```{r}
+# Load the Excel sheets for Female and Male
+female_age_data_2016 <- read_excel("Voters_Age_2016.xlsx", sheet = "Female")
+male_age_data_2016 <- read_excel("Voters_Age_2016.xlsx", sheet = "Male")
+
+# Select and clean relevant columns for Female data
+female_age_2016_clean <- female_age_data_2016 %>%
+  slice(4:9) %>%  
+  select(Age = Age, Voters = `...11`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Female")  # Add Gender column
+female_age_2016_clean
+
+# Select and clean relevant columns for Male data
+male_age_2016_clean <- male_age_data_2016 %>%
+  slice(4:9) %>%  # Selecting rows corresponding to age groups
+  select(Age = Age, Voters = `...11`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Male")  # Add Gender column
+```
+
+```{r}
+# Combine Female and Male data by Age
+combined_age_2016 <- full_join(
+  female_age_2016_clean,
+  male_age_2016_clean,
+  by = "Age",
+  suffix = c("_Female", "_Male")
+) %>%
+  # Select and rename columns for clarity
+  select(Age, Female = Voters_Female, Male = Voters_Male) %>%
+  # Reshape the data to have Gender and Voters as separate columns
+  pivot_longer(
+    cols = c(Female, Male),
+    names_to = "Gender",
+    values_to = "Voters"
+  ) %>%
+  # Ensure Voters column is numeric and round the values
+  mutate(Voters = round(as.numeric(Voters), 1))
+
+# View the reshaped dataset
+print(combined_age_2016)
+
+# Optional: Save the reshaped dataset to a CSV
+write.csv(combined_age_2016, "combined_age_2016.csv", row.names = FALSE)
+```
+
+* Voters Age Distribution 2020
+```{r}
+# Load the Excel sheets for Female and Male
+female_age_data_2020 <- read_excel("Voters_Age_2020.xlsx", sheet = "Female")
+male_age_data_2020 <- read_excel("Voters_Age_2020.xlsx", sheet = "Male")
+
+# Select and clean relevant columns for Female data
+female_age_2020_clean <- female_age_data_2020 %>%
+  slice(4:9) %>%  
+  select(Age = Age, Voters = `...11`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Female")  # Add Gender column
+
+# Select and clean relevant columns for Male data
+male_age_2020_clean <- male_age_data_2020 %>%
+  slice(4:9) %>%  # Selecting rows corresponding to age groups
+  select(Age = Age, Voters = `...11`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Male")  # Add Gender column
+```
+
+```{r}
+# Combine Female and Male data by Age
+combined_age_2020 <- full_join(
+  female_age_2020_clean,
+  male_age_2020_clean,
+  by = "Age",
+  suffix = c("_Female", "_Male")
+) %>%
+  # Select and rename columns for clarity
+  select(Age, Female = Voters_Female, Male = Voters_Male) %>%
+  # Reshape the data to have Gender and Voters as separate columns
+  pivot_longer(
+    cols = c(Female, Male),
+    names_to = "Gender",
+    values_to = "Voters"
+  ) %>%
+  # Ensure Voters column is numeric and round the values
+  mutate(Voters = round(as.numeric(Voters), 1))
+
+# View the reshaped dataset
+print(combined_age_2020)
+
+# Optional: Save the reshaped dataset to a CSV
+write.csv(combined_age_2020, "combined_age_2020.csv", row.names = FALSE)
+```
+
+```{r}
+# Load required libraries
+library(dplyr)
+
+# Define a function to add the year to the dataset and combine them
+add_year_column <- function(data, year) {
+  data %>%
+    mutate(Year = year) %>%
+    select(Year, everything())
+}
+
+# Combine all years into one dataset
+all_years_data <- bind_rows(
+  add_year_column(combined_age_2008, 2008),
+  add_year_column(combined_age_2012, 2012),
+  add_year_column(combined_age_2016, 2016),
+  add_year_column(combined_age_2020, 2020)
+)
+
+# Group by Year, Age, and Gender to summarize the data
+grouped_data <- all_years_data %>%
+  group_by(Year, Age, Gender) %>%
+  summarise(Total_Voters = sum(Voters, na.rm = TRUE), .groups = "drop")
+
+# Save grouped data as an Excel file
+write.csv(grouped_data, "Voter_Turnout_By_Age_Group_Year.csv", row.names = FALSE)
+
+# View the grouped data
+print(grouped_data)
+```
+
+```{r}
+# Load the Excel sheets for Both Sexes from 2008 2012, 2016, 2020
+both_sexes_2008 <- read_excel("Voters_Age_2008.xlsx", sheet = "Both Sexes")
+both_sexes_2012 <- read_excel("Voters_Age_2012.xlsx", sheet = "Both Sexes")
+both_sexes_2016 <- read_excel("Voters_Age_2016.xlsx", sheet = "Both Sexes")
+both_sexes_2020 <- read_excel("Voters_Age_2020.xlsx", sheet = "Both Sexes")
+
+
+# Select and clean relevant columns for Both sexes data
+both_sexes_2008_clean <- both_sexes_2008 %>%
+  slice(4:8) %>%  
+  select(Age = Age, Voters = `...9`) # Select age, voters, nonvoters
+both_sexes_2008_clean
+
+both_sexes_2012_clean <- both_sexes_2012 %>%
+  slice(4:8) %>%  
+  select(Age = Age, Voters = `...11`) # Select age, voters, nonvoters
+both_sexes_2012_clean
+
+both_sexes_2016_clean <- both_sexes_2016 %>%
+  slice(4:8) %>%  
+  select(Age = Age, Voters = `...11`) # Select age, voters, nonvoters
+both_sexes_2016_clean
+
+both_sexes_2020_clean <- both_sexes_2020 %>%
+  slice(4:8) %>%  
+  select(Age = Age, Voters = `...11`) # Select age, voters, nonvoters
+both_sexes_2020_clean
+```
+
+```{r}
+# Define a function to add the year to the dataset and combine them
+add_year_column <- function(data, year) {
+  data %>%
+    mutate(Year = year) %>%
+    select(Year, everything())
+}
+
+# Combine all years into one dataset
+all_years_data <- bind_rows(
+  add_year_column(both_sexes_2008_clean, 2008),
+  add_year_column(both_sexes_2012_clean, 2012),
+  add_year_column(both_sexes_2016_clean, 2016),
+  add_year_column(both_sexes_2020_clean, 2020)
+)
+
+# Group by Year, Age, and Gender to summarize the data
+grouped_data_2 <- all_years_data %>%
+  group_by(Year, Age) 
+
+# Save grouped data as an Excel file
+write.csv(grouped_data_2, "Voter_Turnout_By_Age_Group_Year_Both_Sexes.csv", row.names = FALSE)
+
+# View the grouped data
+print(grouped_data_2)
+```
+
+
+* Voters Education Distribution 2008
+
+```{r}
+# Load the Excel sheets for Female and Male
+female_education_data_2008 <- read_excel("Voters_Education_2008.xlsx", sheet = "Female")
+colnames(female_education_data_2008)
+male_education_data_2008 <- read_excel("Voters_Education_2008.xlsx", sheet = "Male")
+colnames(female_education_data_2008)
+# Select and clean relevant columns for Female data
+female_education_data_2008 <- female_education_data_2008 %>%
+  slice(4:9) %>%  
+  select(Education = `Age, sex, and educational attainment`, Voters = `...9`) %>%  
+  mutate(Gender = "Female")  # Add Gender column
+female_education_data_2008
+
+# Select and clean relevant columns for Male data
+male_education_data_2008 <- male_education_data_2008 %>%
+  slice(4:9) %>%  # Selecting rows corresponding to age groups
+  select(Education = `Age, sex, and educational attainment`, Voters = `...9`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Male")  # Add Gender column
+male_education_data_2008
+```
+
+```{r}
+# Combine Female and Male data by Age
+combined_education_2008 <- full_join(
+  female_education_data_2008,
+  male_education_data_2008,
+  by = "Education",
+  suffix = c("_Female", "_Male")
+) %>%
+  # Select and rename columns for clarity
+  select(Education, Female = Voters_Female, Male = Voters_Male) %>%
+  # Reshape the data to have Gender and Voters as separate columns
+  pivot_longer(
+    cols = c(Female, Male),
+    names_to = "Gender",
+    values_to = "Voters"
+  ) %>%
+  # Ensure Voters column is numeric and round the values
+  mutate(Voters = round(as.numeric(Voters), 1))
+```
+
+
+* Voters Education Distribution 2012
+
+```{r}
+# Load the Excel sheets for Female and Male
+female_education_data_2012 <- read_excel("Voters_Education_2012.xls", sheet = "Female")
+colnames(female_education_data_2012)
+male_education_data_2012 <- read_excel("Voters_Education_2012.xls", sheet = "Male")
+colnames(female_education_data_2012)
+# Select and clean relevant columns for Female data
+female_education_data_2012 <- female_education_data_2012 %>%
+  slice(4:9) %>%  
+  select(Education = `All ages`, Voters = `...11`) %>%  
+  mutate(Gender = "Female")  # Add Gender column
+female_education_data_2012
+
+# Select and clean relevant columns for Male data
+male_education_data_2012 <- male_education_data_2012 %>%
+  slice(4:9) %>%  # Selecting rows corresponding to age groups
+  select(Education = `All ages`, Voters = `...11`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Male")  # Add Gender column
+male_education_data_2012
+```
+
+```{r}
+# Combine Female and Male data by Age
+combined_education_2012 <- full_join(
+  female_education_data_2012,
+  male_education_data_2012,
+  by = "Education",
+  suffix = c("_Female", "_Male")
+) %>%
+  # Select and rename columns for clarity
+  select(Education, Female = Voters_Female, Male = Voters_Male) %>%
+  # Reshape the data to have Gender and Voters as separate columns
+  pivot_longer(
+    cols = c(Female, Male),
+    names_to = "Gender",
+    values_to = "Voters"
+  ) %>%
+  # Ensure Voters column is numeric and round the values
+  mutate(Voters = round(as.numeric(Voters), 1))
+```
+
+
+* Voters Education Distribution 2016
+
+```{r}
+# Load the Excel sheets for Female and Male
+female_education_data_2016 <- read_excel("Voters_Education_2016.xlsx", sheet = "Female")
+colnames(female_education_data_2016)
+male_education_data_2016 <- read_excel("Voters_Education_2016.xlsx", sheet = "Male")
+colnames(female_education_data_2016)
+# Select and clean relevant columns for Female data
+female_education_data_2016 <- female_education_data_2016 %>%
+  slice(4:9) %>%  
+  select(Education = `All ages`, Voters = `...11`) %>%  
+  mutate(Gender = "Female")  # Add Gender column
+female_education_data_2016
+
+# Select and clean relevant columns for Male data
+male_education_data_2016 <- male_education_data_2016 %>%
+  slice(4:9) %>%  # Selecting rows corresponding to age groups
+  select(Education = `All ages`, Voters = `...11`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Male")  # Add Gender column
+male_education_data_2016
+```
+
+```{r}
+# Combine Female and Male data by Age
+combined_education_2016 <- full_join(
+  female_education_data_2016,
+  male_education_data_2016,
+  by = "Education",
+  suffix = c("_Female", "_Male")
+) %>%
+  # Select and rename columns for clarity
+  select(Education, Female = Voters_Female, Male = Voters_Male) %>%
+  # Reshape the data to have Gender and Voters as separate columns
+  pivot_longer(
+    cols = c(Female, Male),
+    names_to = "Gender",
+    values_to = "Voters"
+  ) %>%
+  # Ensure Voters column is numeric and round the values
+  mutate(Voters = round(as.numeric(Voters), 1))
+```
+
+* Voters Education Distribution 2020
+
+```{r}
+# Load the Excel sheets for Female and Male
+female_education_data_2020 <- read_excel("Voters_Education_2020.xlsx", sheet = "Female")
+colnames(female_education_data_2020)
+male_education_data_2020 <- read_excel("Voters_Education_2020.xlsx", sheet = "Male")
+colnames(female_education_data_2020)
+# Select and clean relevant columns for Female data
+female_education_data_2020 <- female_education_data_2020 %>%
+  slice(4:9) %>%  
+  select(Education = `All ages`, Voters = `...11`) %>%  
+  mutate(Gender = "Female")  # Add Gender column
+female_education_data_2020
+
+# Select and clean relevant columns for Male data
+male_education_data_2020 <- male_education_data_2020 %>%
+  slice(4:9) %>%  # Selecting rows corresponding to age groups
+  select(Education = `All ages`, Voters = `...11`) %>% # Select age, voters, nonvoters
+  mutate(Gender = "Male")  # Add Gender column
+male_education_data_2020
+```
+
+```{r}
+# Combine Female and Male data by Age
+combined_education_2020 <- full_join(
+  female_education_data_2020,
+  male_education_data_2020,
+  by = "Education",
+  suffix = c("_Female", "_Male")
+) %>%
+  # Select and rename columns for clarity
+  select(Education, Female = Voters_Female, Male = Voters_Male) %>%
+  # Reshape the data to have Gender and Voters as separate columns
+  pivot_longer(
+    cols = c(Female, Male),
+    names_to = "Gender",
+    values_to = "Voters"
+  ) %>%
+  # Ensure Voters column is numeric and round the values
+  mutate(Voters = round(as.numeric(Voters), 1))
+```
+
+```{r}
+# Define a function to add the year to the dataset and combine them
+add_year_column <- function(data, year) {
+  data %>%
+    mutate(Year = year) %>%
+    select(Year, everything())
+}
+
+# Combine all years into one dataset
+all_years_data <- bind_rows(
+  add_year_column(combined_education_2008, 2008),
+  add_year_column(combined_education_2012, 2012),
+  add_year_column(combined_education_2016, 2016),
+  add_year_column(combined_education_2020, 2020)
+)
+
+# Group by Year, Age, and Gender to summarize the data
+grouped_data_3 <- all_years_data %>%
+  group_by(Year, Education) 
+
+# Save grouped data as an Excel file
+write.csv(grouped_data_3, "Voter_Turnout_By_Education_Group_Year.csv", row.names = FALSE)
+
+# View the grouped data
+print(grouped_data_3)
+```
+
+```{r}
+# Load the Excel sheets for Both Sexes from 2008 2012, 2016, 2020
+education_both_sexes_2008 <- read_excel("Voters_Education_2008.xlsx", sheet = "Both Sexes")
+education_both_sexes_2012 <- read_excel("Voters_Education_2012.xls", sheet = "Both Sexes")
+education_both_sexes_2016 <- read_excel("Voters_Education_2016.xlsx", sheet = "Both Sexes")
+education_both_sexes_2020 <- read_excel("Voters_Education_2020.xlsx", sheet = "Both Sexes")
+
+
+# Select and clean relevant columns for Both sexes data
+education_both_sexes_2008 <- education_both_sexes_2008 %>%
+  slice(4:9) %>%  
+  select(Education = `Age, sex, and educational attainment`, Voters = `...9`) # Select age, voters, nonvoters
+
+education_both_sexes_2012 <- education_both_sexes_2012 %>%
+  slice(4:9) %>%  
+  select(Education = `All ages`, Voters = `...11`) # Select age, voters, nonvoters
+education_both_sexes_2012
+
+education_both_sexes_2016 <- education_both_sexes_2016 %>%
+  slice(4:9) %>%  
+  select(Education = `All ages`, Voters = `...11`) # Select age, voters, nonvoters
+
+education_both_sexes_2020 <- education_both_sexes_2020 %>%
+  slice(4:9) %>%  
+  select(Education = `All ages`, Voters = `...11`) # Select age, voters, nonvoters
+```
+
+```{r}
+# Define a function to add the year to the dataset and combine them
+add_year_column <- function(data, year) {
+  data %>%
+    mutate(Year = year) %>%
+    select(Year, everything())
+}
+
+# Combine all years into one dataset
+all_years_data <- bind_rows(
+  add_year_column(education_both_sexes_2008, 2008),
+  add_year_column(education_both_sexes_2012, 2012),
+  add_year_column(education_both_sexes_2016, 2016),
+  add_year_column(education_both_sexes_2020, 2020)
+)
+
+# Group by Year, Age, and Gender to summarize the data
+grouped_data_4 <- all_years_data %>%
+  group_by(Year, Education) 
+
+# Save grouped data as an Excel file
+write.csv(grouped_data_4, "Voter_Turnout_By_Education_Group_Year_Both_Sexes.csv", row.names = FALSE)
+
+# View the grouped data
+print(grouped_data_4)
+```
